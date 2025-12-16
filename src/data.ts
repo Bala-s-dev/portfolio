@@ -21,7 +21,7 @@ export const PERSONAL_INFO = {
   to solve real-world problems efficiently.`,
   social: {
     github: 'https://github.com/bala-s-dev',
-    linkedin: 'https://linkedin.com/in/bala-s',
+    linkedin: 'https://linkedin.com/in/bala-subramanian012',
     email: 'mailto:contact@example.com',
   },
 };
@@ -51,33 +51,109 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
-    title: 'E-Commerce Platform',
+    title: 'AI Voice Call Fitness Assistant & Scheduler',
     description:
-      'A comprehensive e-commerce solution featuring real-time inventory management, secure payment processing, and an intuitive user interface.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      'An AI-powered voice call application that interacts with users to collect fitness details such as age, weight, goals, and availability. The assistant generates personalized workout and diet plans, schedules sessions, and resolves booking conflicts through intelligent conversation.',
+    tech: [
+      'React',
+      'Vite',
+      'Node.js',
+      'Vapi AI',
+      'Gemini API',
+      'Convex',
+      'LiveKit',
+    ],
     image:
-      'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=1000',
+      'https://www.aidlab.com/static/blog-imgs/the-era-of-ai-based-fitness/hero.svg',
     liveLink: '#',
-    repoLink: '#',
+    repoLink:
+      'https://github.com/Bala-s-dev/AI-Fitness_VoiceCall-Assistant-and-Scheduler.git',
+    gallery: [
+      '/assets/ai-fitness/1.png',
+      '/assets/ai-fitness/2.png',
+      '/assets/ai-fitness/3.png',
+    ],
   },
   {
-    title: 'SaaS Dashboard',
+    title: 'Real-Time Secure Chat Application',
     description:
-      'A modern analytics dashboard for a SaaS product, providing data visualization, user management, and reporting tools.',
-    tech: ['TypeScript', 'React', 'Chart.js', 'AWS'],
+      'A full-featured real-time chat application with user authentication, private messaging, status updates, user blocking, and chat locking using passwords. Designed with a modern UI and secure Firebase-backed infrastructure.',
+    tech: [
+      'React',
+      'Firebase Authentication',
+      'Firestore',
+      'Zustand',
+      'Tailwind CSS',
+    ],
     image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000',
+      'https://i.pcmag.com/imagery/articles/002UA0jmq1cLhHLC4kkoQjK-3.fit_lim.v1569490057.jpg',
     liveLink: '#',
-    repoLink: '#',
+    repoLink: 'https://github.com/Bala-s-dev/balachat.git',
+    gallery: [
+      '/assets/secure-chat/Screenshot (388).png',
+      '/assets/secure-chat/Screenshot (389).png',
+      '/assets/secure-chat/Screenshot (390).png',
+    ],
   },
   {
-    title: 'Learning Management System',
+    title: 'AI-Powered Smart Exam Platform',
     description:
-      'An educational platform enabling course creation, student progress tracking, and interactive learning modules.',
-    tech: ['React', 'NestJS', 'PostgreSQL', 'Socket.io'],
+      'An intelligent EdTech application where instructors generate exams instantly from raw syllabus text using Google Gemini AI, and students receive predictive performance analytics to identify weak topics.',
+    tech: [
+      'Next.js 16',
+      'TypeScript',
+      'PostgreSQL',
+      'Prisma',
+      'Google Gemini AI',
+      'Tailwind CSS',
+    ],
     image:
-      'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1000',
+      'https://www.eklavvya.com/wp-content/uploads/2023/11/generative-ai-assessment-scaled-1.webp',
+    repoLink: 'https://github.com/Bala-s-dev/smart-exam-platform.git',
+    gallery: [
+      // Coding/Tech context
+    ],
+  },
+  {
+    title: 'AI Career Coach Application',
+    description:
+      'An AI-powered career guidance platform that provides personalized career recommendations, skill gap analysis, and learning roadmaps based on user interests and goals. The system also assists with resume building and interview preparation using intelligent AI insights.',
+    tech: ['React', 'Vite', 'Node.js', 'AI APIs', 'Firebase', 'Tailwind CSS'],
+    image: 'https://blog.vocaliv.com/wp-content/uploads/2025/10/AI-Coach.png',
     liveLink: '#',
-    repoLink: '#',
+    repoLink: 'https://github.com/Bala-s-dev/ai-career-coach',
+    gallery: [
+      '/assets/ai-coach/1.png',
+      '/assets/ai-coach/Screenshot (392).png',
+      '/assets/ai-coach/Screenshot (393).png',
+      '/assets/ai-coach/Screenshot (394).png',
+      '/assets/ai-coach/Screenshot (397).png',
+    ],
+  },
+  {
+    title: 'EMI-Based Precious Metal Investment Application',
+    description:
+      'A financial investment platform that allows users to invest in precious metals such as gold and silver through flexible EMI plans. The application provides real-time price tracking, EMI calculations, and a secure dashboard to manage investments efficiently.',
+    tech: [
+      'React',
+      'Node.js',
+      'Express.js',
+      'Payment Gateway API',
+      'MongoDB',
+      'Tailwind CSS',
+    ],
+    image:
+      'https://thumbs.dreamstime.com/b/rising-gold-prices-business-analysis-precious-metal-investment-stock-exchange-rising-gold-prices-business-analysis-222377695.jpg',
+    liveLink: '#',
+    repoLink: 'https://github.com/Bala-s-dev/gopi-proj.git',
+    gallery: [
+      '/assets/metal-inv/1.jpg',
+      '/assets/metal-inv/2.jpg',
+      '/assets/metal-inv/3.jpg',
+      '/assets/metal-inv/4.jpg',
+      '/assets/metal-inv/5.jpg',
+      '/assets/metal-inv/6.jpg',
+    ],
   },
 ];
+

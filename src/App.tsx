@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Menu,
   X,
@@ -9,6 +9,9 @@ import {
   ChevronDown,
   Send,
   User,
+  ChevronLeft,
+  ChevronRight,
+  Images,
 } from 'lucide-react';
 import { PERSONAL_INFO, SKILLS, PROJECTS } from './data';
 
@@ -18,6 +21,13 @@ function App() {
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>(
     'idle'
   );
+
+  // Gallery State
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState<
+    number | null
+  >(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Smooth scrolling and active section detection
   useEffect(() => {
@@ -49,17 +59,59 @@ function App() {
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-    // Simulate email sending
     setTimeout(() => {
       setFormStatus('sent');
       setTimeout(() => setFormStatus('idle'), 3000);
     }, 2000);
   };
 
+  // Gallery Navigation Handlers
+  const openGallery = (index: number) => {
+    setSelectedProjectIndex(index);
+    setCurrentImageIndex(0);
+    setGalleryOpen(true);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeGallery = () => {
+    setGalleryOpen(false);
+    setSelectedProjectIndex(null);
+    document.body.style.overflow = 'unset';
+  };
+
+  const nextImage = useCallback(() => {
+    if (selectedProjectIndex !== null) {
+      const galleryLength = PROJECTS[selectedProjectIndex].gallery.length;
+      setCurrentImageIndex((prev) => (prev + 1) % galleryLength);
+    }
+  }, [selectedProjectIndex]);
+
+  const prevImage = useCallback(() => {
+    if (selectedProjectIndex !== null) {
+      const galleryLength = PROJECTS[selectedProjectIndex].gallery.length;
+      setCurrentImageIndex(
+        (prev) => (prev - 1 + galleryLength) % galleryLength
+      );
+    }
+  }, [selectedProjectIndex]);
+
+  // Keyboard navigation for gallery
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!galleryOpen) return;
+      if (e.key === 'Escape') closeGallery();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [galleryOpen, nextImage, prevImage]);
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
       {/* Navigation Bar */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-40 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <button
@@ -69,7 +121,6 @@ function App() {
               {PERSONAL_INFO.name}
             </button>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {['home', 'about', 'skills', 'projects', 'contact'].map(
                 (section) => (
@@ -88,7 +139,6 @@ function App() {
               )}
             </div>
 
-            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-emerald-600 transition-colors"
@@ -98,7 +148,6 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
             <div className="px-4 py-4 space-y-2">
@@ -141,19 +190,16 @@ function App() {
           <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
             {PERSONAL_INFO.role}
           </p>
-          <p className="text-lg text-gray-500 mb-12 max-w-2xl mx-auto">
-            {PERSONAL_INFO.tagline}
-          </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
             <button
               onClick={() => scrollToSection('projects')}
-              className="px-8 py-3.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-200 transform hover:-translate-y-1 font-medium"
+              className="px-8 py-3.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-all shadow-lg font-medium"
             >
               View My Work
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="px-8 py-3.5 bg-white text-emerald-600 border border-emerald-200 rounded-full hover:bg-emerald-50 transition-all shadow-sm hover:shadow-md font-medium"
+              className="px-8 py-3.5 bg-white text-emerald-600 border border-emerald-200 rounded-full hover:bg-emerald-50 transition-all shadow-sm font-medium"
             >
               Contact Me
             </button>
@@ -166,16 +212,16 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-emerald-600 transition-colors transform hover:scale-110"
-                aria-label={platform}
               >
-                {platform === 'github' && <Github size={24} />}
-                {platform === 'linkedin' && <Linkedin size={24} />}
-                {platform === 'email' && <Mail size={24} />}
+                {platform === 'github' ? (
+                  <Github size={24} />
+                ) : platform === 'linkedin' ? (
+                  <Linkedin size={24} />
+                ) : (
+                  <Mail size={24} />
+                )}
               </a>
             ))}
-          </div>
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-400">
-            <ChevronDown size={24} />
           </div>
         </div>
       </section>
@@ -204,9 +250,6 @@ function App() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Technical Proficiency
             </h2>
-            <p className="text-gray-500">
-              My technical toolkit and areas of expertise
-            </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {SKILLS.map((skillGroup) => {
@@ -214,7 +257,7 @@ function App() {
               return (
                 <div
                   key={skillGroup.category}
-                  className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
+                  className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
                 >
                   <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-6 text-emerald-600">
                     <Icon size={24} />
@@ -247,7 +290,8 @@ function App() {
               Featured Projects
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              A showcase of my recent work and technical achievements.
+              Hover over the images to explore project galleries and source
+              code.
             </p>
           </div>
 
@@ -257,35 +301,49 @@ function App() {
                 key={index}
                 className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
               >
+                {/* Project Image Container with Hover Overlay */}
                 <div className="relative overflow-hidden h-56 bg-gray-100">
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
-                    {project.liveLink !== '#' && (
-                      <a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-gray-900 font-medium hover:bg-emerald-50 transition-colors"
-                      >
-                        Live Demo <ExternalLink size={16} />
-                      </a>
-                    )}
-                    {project.repoLink !== '#' && (
-                      <a
-                        href={project.repoLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-3 bg-gray-900 rounded-full text-white hover:bg-gray-800 transition-colors"
-                      >
-                        <Github size={20} />
-                      </a>
-                    )}
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-4 backdrop-blur-[2px]">
+                    <button
+                      onClick={() => openGallery(index)}
+                      className="px-6 py-2.5 bg-white text-gray-900 rounded-full font-semibold flex items-center gap-2 hover:bg-emerald-500 hover:text-white transition-all transform hover:scale-105"
+                    >
+                      View Gallery <Images size={18} />
+                    </button>
+
+                    <div className="flex gap-3">
+                      {project.repoLink && project.repoLink !== '#' && (
+                        <a
+                          href={project.repoLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p-3 bg-gray-800/80 text-white rounded-full hover:bg-black transition-colors border border-gray-700"
+                          title="View Source Code"
+                        >
+                          <Github size={20} />
+                        </a>
+                      )}
+                      {project.liveLink && project.liveLink !== '#' && (
+                        <a
+                          href={project.liveLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p-3 bg-gray-800/80 text-white rounded-full hover:bg-emerald-600 transition-colors border border-gray-700"
+                          title="View Live Demo"
+                        >
+                          <ExternalLink size={20} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
+
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
                     {project.title}
@@ -313,85 +371,46 @@ function App() {
       {/* Contact Section */}
       <section id="contact" className="py-24 bg-gray-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-full -mr-16 -mt-16 opacity-50 blur-2xl"></div>
-
-            <div className="text-center mb-10 relative z-10">
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
+            <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 Let's Connect
               </h2>
               <p className="text-gray-600">
-                Interested in collaborating or have a question? I'd love to hear
-                from you.
+                Interested in collaborating? I'd love to hear from you.
               </p>
             </div>
-
             {formStatus === 'sent' ? (
-              <div className="bg-emerald-50 border border-emerald-100 text-emerald-800 p-8 rounded-xl text-center animate-fade-in">
-                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 text-emerald-600">
-                  <Send size={32} />
-                </div>
-                <p className="text-xl font-bold mb-2">Message Sent!</p>
-                <p className="text-emerald-700">
-                  Thank you for reaching out. I'll get back to you shortly.
-                </p>
+              <div className="bg-emerald-50 text-emerald-800 p-8 rounded-xl text-center">
+                <Send size={32} className="mx-auto mb-4" />
+                <p className="text-xl font-bold">Message Sent!</p>
               </div>
             ) : (
-              <form
-                onSubmit={handleContactSubmit}
-                className="space-y-6 relative z-10"
-              >
+              <form onSubmit={handleContactSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
+                  <input
+                    type="text"
+                    placeholder="Name"
                     required
-                    rows={5}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none resize-none"
-                    placeholder="Tell me about your project..."
-                  ></textarea>
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    required
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                  />
                 </div>
+                <textarea
+                  rows={5}
+                  placeholder="Message"
+                  required
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none resize-none"
+                ></textarea>
                 <button
                   type="submit"
                   disabled={formStatus === 'sending'}
-                  className="w-full py-4 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors shadow-lg hover:shadow-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-semibold flex items-center justify-center gap-2"
                 >
                   {formStatus === 'sending' ? (
                     'Sending...'
@@ -407,30 +426,95 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Gallery Modal */}
+      {galleryOpen && selectedProjectIndex !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 animate-fade-in">
+          <button
+            onClick={closeGallery}
+            className="absolute top-6 right-6 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors z-50"
+          >
+            <X size={32} />
+          </button>
+
+          <div className="relative w-full max-w-5xl aspect-video flex items-center justify-center">
+            {/* Previous Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+              className="absolute left-4 p-3 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors z-10"
+            >
+              <ChevronLeft size={40} />
+            </button>
+
+            {/* Image */}
+            <div className="w-full h-full relative">
+              <img
+                src={PROJECTS[selectedProjectIndex].gallery[currentImageIndex]}
+                alt={`${PROJECTS[selectedProjectIndex].title} screenshot ${
+                  currentImageIndex + 1
+                }`}
+                className="w-full h-full object-contain rounded-lg shadow-2xl"
+              />
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-1.5 rounded-full text-sm backdrop-blur-sm">
+                {currentImageIndex + 1} /{' '}
+                {PROJECTS[selectedProjectIndex].gallery.length}
+              </div>
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              className="absolute right-4 p-3 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors z-10"
+            >
+              <ChevronRight size={40} />
+            </button>
+          </div>
+
+          <div className="absolute bottom-6 left-0 w-full flex justify-center gap-2">
+            {PROJECTS[selectedProjectIndex].gallery.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentImageIndex(idx)}
+                className={`w-2.5 h-2.5 rounded-full transition-all ${
+                  idx === currentImageIndex
+                    ? 'bg-white scale-125'
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       <footer className="bg-white border-t border-gray-100 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} {PERSONAL_INFO.name}. Built with React
-            & Tailwind.
+            © {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights
+            reserved.
           </p>
           <div className="flex gap-6">
-            <a
-              href={PERSONAL_INFO.social.github}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-400 hover:text-emerald-600 transition-colors"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href={PERSONAL_INFO.social.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-400 hover:text-emerald-600 transition-colors"
-            >
-              <Linkedin size={20} />
-            </a>
+            {Object.values(PERSONAL_INFO.social).map((link, i) => (
+              <a
+                key={i}
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-400 hover:text-emerald-600 transition-colors"
+              >
+                {i === 0 ? (
+                  <Github size={20} />
+                ) : i === 1 ? (
+                  <Linkedin size={20} />
+                ) : (
+                  <Mail size={20} />
+                )}
+              </a>
+            ))}
           </div>
         </div>
       </footer>
