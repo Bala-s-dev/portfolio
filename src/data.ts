@@ -135,12 +135,11 @@ export const PROJECTS = [
     description:
       'A financial investment platform that allows users to invest in precious metals such as gold and silver through flexible EMI plans. The application provides real-time price tracking, EMI calculations, and a secure dashboard to manage investments efficiently.',
     tech: [
-      'React',
-      'Node.js',
-      'Express.js',
-      'Payment Gateway API',
-      'MongoDB',
+      'React Native',
+      'Firebase',
+      'Expo',
       'Tailwind CSS',
+      'Payment Gateway Integration',
     ],
     image:
       'https://thumbs.dreamstime.com/b/rising-gold-prices-business-analysis-precious-metal-investment-stock-exchange-rising-gold-prices-business-analysis-222377695.jpg',
