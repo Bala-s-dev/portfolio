@@ -69,9 +69,9 @@ export const PROJECTS = [
     repoLink:
       'https://github.com/Bala-s-dev/AI-Fitness_VoiceCall-Assistant-and-Scheduler.git',
     gallery: [
-      '/assets/ai-fitness/1.png',
-      '/assets/ai-fitness/2.png',
-      '/assets/ai-fitness/3.png',
+      '/public/assets/ai-fitness/1.png',
+      '/public/assets/ai-fitness/2.png',
+      '/public/assets/ai-fitness/3.png',
     ],
   },
   {
@@ -90,9 +90,9 @@ export const PROJECTS = [
     liveLink: '#',
     repoLink: 'https://github.com/Bala-s-dev/balachat.git',
     gallery: [
-      '/assets/secure-chat/Screenshot (388).png',
-      '/assets/secure-chat/Screenshot (389).png',
-      '/assets/secure-chat/Screenshot (390).png',
+      '/public/assets/secure-chat/Screenshot (388).png',
+      '/public/assets/secure-chat/Screenshot (389).png',
+      '/public/assets/secure-chat/Screenshot (390).png',
     ],
   },
   {
@@ -123,11 +123,11 @@ export const PROJECTS = [
     liveLink: '#',
     repoLink: 'https://github.com/Bala-s-dev/ai-career-coach',
     gallery: [
-      '/assets/ai-coach/1.png',
-      '/assets/ai-coach/Screenshot (392).png',
-      '/assets/ai-coach/Screenshot (393).png',
-      '/assets/ai-coach/Screenshot (394).png',
-      '/assets/ai-coach/Screenshot (397).png',
+      '/public/assets/ai-coach/1.png',
+      '/public/assets/ai-coach/Screenshot (392).png',
+      '/public/assets/ai-coach/Screenshot (393).png',
+      '/public/assets/ai-coach/Screenshot (394).png',
+      '/public/assets/ai-coach/Screenshot (397).png',
     ],
   },
   {
@@ -147,12 +147,12 @@ export const PROJECTS = [
     liveLink: '#',
     repoLink: 'https://github.com/Bala-s-dev/gopi-proj.git',
     gallery: [
-      '/assets/metal-inv/1.jpg',
-      '/assets/metal-inv/2.jpg',
-      '/assets/metal-inv/3.jpg',
-      '/assets/metal-inv/4.jpg',
-      '/assets/metal-inv/5.jpg',
-      '/assets/metal-inv/6.jpg',
+      '/public/assets/metal-inv/1.jpg',
+      '/public/assets/metal-inv/2.jpg',
+      '/public/assets/metal-inv/3.jpg',
+      '/public/assets/metal-inv/4.jpg',
+      '/public/assets/metal-inv/5.jpg',
+      '/public/assets/metal-inv/6.jpg',
     ],
   },
 ];
