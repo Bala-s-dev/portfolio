@@ -1,21 +1,33 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code2, Palette, Rocket, ChevronDown, ChevronLeft, ChevronRight, X as CloseIcon } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  Mail,
+  ExternalLink,
+  ChevronDown,
+  Send,
+  User,
+} from 'lucide-react';
+import { PERSONAL_INFO, SKILLS, PROJECTS } from './data';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [galleryOpen, setGalleryOpen] = useState(false);
-  const [galleryIndex, setGalleryIndex] = useState(0);
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent'>(
+    'idle'
+  );
 
+  // Smooth scrolling and active section detection
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'skills', 'projects', 'contact'];
-      const current = sections.find(section => {
+      const current = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          return rect.top <= 150 && rect.bottom >= 150;
         }
         return false;
       });
@@ -34,87 +46,49 @@ function App() {
     }
   };
 
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution with real-time inventory management and payment processing.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-      gallery: [
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3862372/pexels-photo-3862372.jpeg?auto=compress&cs=tinysrgb&w=800"
-      ]
-    },
-    {
-      title: "Task Management App",
-      description: "Collaborative task management tool with real-time updates and team analytics.",
-      tech: ["TypeScript", "React", "Supabase", "Tailwind"],
-      image: "https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=800",
-      gallery: [
-        "https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3183144/pexels-photo-3183144.jpeg?auto=compress&cs=tinysrgb&w=800"
-      ]
-    },
-    {
-      title: "Analytics Dashboard",
-      description: "Data visualization platform with interactive charts and customizable reports.",
-      tech: ["React", "D3.js", "PostgreSQL", "Express"],
-      image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800",
-      gallery: [
-        "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/669122/pexels-photo-669122.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3182754/pexels-photo-3182754.jpeg?auto=compress&cs=tinysrgb&w=800"
-      ]
-    },
-    {
-      title: "Social Media App",
-      description: "Modern social networking platform with messaging and content sharing features.",
-      tech: ["React Native", "Firebase", "Redux", "Node.js"],
-      image: "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=800",
-      gallery: [
-        "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3183591/pexels-photo-3183591.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/3182834/pexels-photo-3182834.jpeg?auto=compress&cs=tinysrgb&w=800"
-      ]
-    }
-  ];
-
-  const skills = [
-    { name: "Frontend Development", icon: Code2, items: ["React", "TypeScript", "Tailwind CSS", "Next.js"] },
-    { name: "Backend Development", icon: Rocket, items: ["Node.js", "Express", "PostgreSQL", "MongoDB"] },
-    { name: "Design & UX", icon: Palette, items: ["Figma", "UI/UX Design", "Responsive Design", "Accessibility"] }
-  ];
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    // Simulate email sending
+    setTimeout(() => {
+      setFormStatus('sent');
+      setTimeout(() => setFormStatus('idle'), 3000);
+    }, 2000);
+  };
 
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <button
               onClick={() => scrollToSection('home')}
-              className="text-2xl font-bold text-gray-900 hover:text-emerald-600 transition-colors"
+              className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
-              Portfolio
+              {PERSONAL_INFO.name}
             </button>
 
+            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'skills', 'projects', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize transition-colors ${
-                    activeSection === section
-                      ? 'text-emerald-600 font-semibold'
-                      : 'text-gray-600 hover:text-emerald-600'
-                  }`}
-                >
-                  {section}
-                </button>
-              ))}
+              {['home', 'about', 'skills', 'projects', 'contact'].map(
+                (section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={`capitalize text-sm font-medium transition-colors ${
+                      activeSection === section
+                        ? 'text-emerald-600'
+                        : 'text-gray-600 hover:text-emerald-600'
+                    }`}
+                  >
+                    {section}
+                  </button>
+                )
+              )}
             </div>
 
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-emerald-600 transition-colors"
@@ -124,135 +98,140 @@ function App() {
           </div>
         </div>
 
+        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-4 py-4 space-y-3">
-              {['home', 'about', 'skills', 'projects', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`block w-full text-left px-4 py-2 capitalize transition-colors rounded-lg ${
-                    activeSection === section
-                      ? 'text-emerald-600 bg-emerald-50 font-semibold'
-                      : 'text-gray-600 hover:text-emerald-600 hover:bg-gray-50'
-                  }`}
-                >
-                  {section}
-                </button>
-              ))}
+          <div className="md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div className="px-4 py-4 space-y-2">
+              {['home', 'about', 'skills', 'projects', 'contact'].map(
+                (section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={`block w-full text-left px-4 py-3 capitalize rounded-lg transition-colors ${
+                      activeSection === section
+                        ? 'bg-emerald-50 text-emerald-600 font-semibold'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    {section}
+                  </button>
+                )
+              )}
             </div>
           </div>
         )}
       </nav>
 
-      <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-emerald-50 pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-            Hi, I'm <span className="text-emerald-600">Alex Morgan</span>
+      {/* Hero Section */}
+      <section
+        id="home"
+        className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/50 -z-10" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
+          <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium animate-pulse">
+            Available for opportunities
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+            Hi, I'm{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
+              {PERSONAL_INFO.name}
+            </span>
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Full-Stack Developer & Creative Problem Solver
+          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
+            {PERSONAL_INFO.role}
           </p>
-          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-            I craft beautiful, functional web experiences that solve real-world problems
+          <p className="text-lg text-gray-500 mb-12 max-w-2xl mx-auto">
+            {PERSONAL_INFO.tagline}
           </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
             <button
               onClick={() => scrollToSection('projects')}
-              className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors shadow-lg hover:shadow-xl"
+              className="px-8 py-3.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-200 transform hover:-translate-y-1 font-medium"
             >
               View My Work
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className="px-8 py-3 bg-white text-emerald-600 border-2 border-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors"
+              className="px-8 py-3.5 bg-white text-emerald-600 border border-emerald-200 rounded-full hover:bg-emerald-50 transition-all shadow-sm hover:shadow-md font-medium"
             >
-              Get In Touch
+              Contact Me
             </button>
           </div>
-          <button
-            onClick={() => scrollToSection('about')}
-            className="text-gray-400 hover:text-emerald-600 transition-colors animate-bounce"
-          >
-            <ChevronDown size={32} />
-          </button>
+          <div className="flex justify-center gap-6 text-gray-400">
+            {Object.entries(PERSONAL_INFO.social).map(([platform, link]) => (
+              <a
+                key={platform}
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-emerald-600 transition-colors transform hover:scale-110"
+                aria-label={platform}
+              >
+                {platform === 'github' && <Github size={24} />}
+                {platform === 'linkedin' && <Linkedin size={24} />}
+                {platform === 'email' && <Mail size={24} />}
+              </a>
+            ))}
+          </div>
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-400">
+            <ChevronDown size={24} />
+          </div>
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-white">
+      {/* About Section */}
+      <section id="about" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">About Me</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <img
-                src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Workspace"
-                className="rounded-2xl shadow-2xl"
-              />
-            </div>
-            <div className="space-y-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 relative inline-block">
+              About Me
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-emerald-200/50 -z-10"></span>
+            </h2>
+            <div className="bg-emerald-50/50 p-8 rounded-2xl border border-emerald-100">
               <p className="text-lg text-gray-700 leading-relaxed">
-                I'm a passionate full-stack developer with over 5 years of experience building web applications
-                that make a difference. My journey in tech started with a curiosity about how things work,
-                and it's grown into a career I absolutely love.
+                {PERSONAL_INFO.about}
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                I specialize in creating responsive, user-friendly applications using modern technologies.
-                Whether it's crafting pixel-perfect interfaces or architecting scalable backend systems,
-                I bring dedication and creativity to every project.
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source
-                projects, or sharing knowledge with the developer community.
-              </p>
-              <div className="flex gap-4 pt-4">
-                <a
-                  href="#"
-                  className="p-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
-                >
-                  <Github size={24} />
-                </a>
-                <a
-                  href="#"
-                  className="p-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
-                >
-                  <Linkedin size={24} />
-                </a>
-                <a
-                  href="#"
-                  className="p-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
-                >
-                  <Mail size={24} />
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="skills" className="py-20 bg-gray-50">
+      {/* Skills Section */}
+      <section id="skills" className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Skills & Expertise</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {skills.map((skill) => {
-              const Icon = skill.icon;
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Technical Proficiency
+            </h2>
+            <p className="text-gray-500">
+              My technical toolkit and areas of expertise
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {SKILLS.map((skillGroup) => {
+              const Icon = skillGroup.icon;
               return (
                 <div
-                  key={skill.name}
-                  className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+                  key={skillGroup.category}
+                  className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
                 >
-                  <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
-                    <Icon className="text-emerald-600" size={28} />
+                  <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-6 text-emerald-600">
+                    <Icon size={24} />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{skill.name}</h3>
-                  <ul className="space-y-2">
-                    {skill.items.map((item) => (
-                      <li key={item} className="text-gray-600 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    {skillGroup.category}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {skillGroup.items.map((item) => (
+                      <span
+                        key={item}
+                        className="px-3 py-1 bg-gray-50 text-gray-700 rounded-md text-sm font-medium border border-gray-100"
+                      >
                         {item}
-                      </li>
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               );
             })}
@@ -260,45 +239,65 @@ function App() {
         </div>
       </section>
 
-      <section id="projects" className="py-20 bg-white">
+      {/* Projects Section */}
+      <section id="projects" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">Featured Projects</h2>
-          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Here are some of my recent projects that showcase my skills and passion for development
-          </p>
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Featured Projects
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              A showcase of my recent work and technical achievements.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {PROJECTS.map((project, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
               >
-                <div className="relative overflow-hidden h-64">
+                <div className="relative overflow-hidden h-56 bg-gray-100">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                    <button
-                      onClick={() => {
-                        setSelectedProject(index);
-                        setGalleryIndex(0);
-                        setGalleryOpen(true);
-                      }}
-                      className="px-6 py-2 bg-white text-gray-900 rounded-lg font-semibold flex items-center gap-2 hover:bg-emerald-600 hover:text-white transition-colors"
-                    >
-                      View Gallery <ExternalLink size={16} />
-                    </button>
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
+                    {project.liveLink !== '#' && (
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-gray-900 font-medium hover:bg-emerald-50 transition-colors"
+                      >
+                        Live Demo <ExternalLink size={16} />
+                      </a>
+                    )}
+                    {project.repoLink !== '#' && (
+                      <a
+                        href={project.repoLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-3 bg-gray-900 rounded-full text-white hover:bg-gray-800 transition-colors"
+                      >
+                        <Github size={20} />
+                      </a>
+                    )}
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 text-sm leading-relaxed flex-1">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium"
+                        className="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md text-xs font-semibold tracking-wide uppercase"
                       >
                         {tech}
                       </span>
@@ -311,154 +310,128 @@ function App() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-gradient-to-br from-emerald-50 to-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">Let's Work Together</h2>
-          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you!
-          </p>
-          <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-12">
-            <form className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
-                    placeholder="Your name"
-                  />
+      {/* Contact Section */}
+      <section id="contact" className="py-24 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-full -mr-16 -mt-16 opacity-50 blur-2xl"></div>
+
+            <div className="text-center mb-10 relative z-10">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Let's Connect
+              </h2>
+              <p className="text-gray-600">
+                Interested in collaborating or have a question? I'd love to hear
+                from you.
+              </p>
+            </div>
+
+            {formStatus === 'sent' ? (
+              <div className="bg-emerald-50 border border-emerald-100 text-emerald-800 p-8 rounded-xl text-center animate-fade-in">
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 text-emerald-600">
+                  <Send size={32} />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
-                    placeholder="your@email.com"
-                  />
-                </div>
+                <p className="text-xl font-bold mb-2">Message Sent!</p>
+                <p className="text-emerald-700">
+                  Thank you for reaching out. I'll get back to you shortly.
+                </p>
               </div>
-              <div>
-                <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
-                  placeholder="What's this about?"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none resize-none"
-                  placeholder="Tell me about your project..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full px-8 py-4 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors shadow-lg hover:shadow-xl font-semibold"
+            ) : (
+              <form
+                onSubmit={handleContactSubmit}
+                className="space-y-6 relative z-10"
               >
-                Send Message
-              </button>
-            </form>
-          </div>
-          <div className="mt-12 flex justify-center gap-6">
-            <a
-              href="#"
-              className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors"
-            >
-              <Github size={20} />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors"
-            >
-              <Linkedin size={20} />
-              <span>LinkedIn</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors"
-            >
-              <Mail size={20} />
-              <span>Email</span>
-            </a>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    required
+                    rows={5}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none resize-none"
+                    placeholder="Tell me about your project..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  disabled={formStatus === 'sending'}
+                  className="w-full py-4 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors shadow-lg hover:shadow-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {formStatus === 'sending' ? (
+                    'Sending...'
+                  ) : (
+                    <>
+                      Send Message <Send size={18} />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
 
-      {galleryOpen && selectedProject !== null && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <button
-            onClick={() => setGalleryOpen(false)}
-            className="absolute top-4 right-4 p-2 text-white hover:bg-white/20 rounded-lg transition-colors"
-          >
-            <CloseIcon size={32} />
-          </button>
-
-          <div className="flex flex-col items-center gap-6 max-w-4xl w-full">
-            <div className="relative w-full aspect-video bg-black rounded-2xl overflow-hidden">
-              <img
-                src={projects[selectedProject].gallery[galleryIndex]}
-                alt={`${projects[selectedProject].title} ${galleryIndex + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="flex items-center justify-between gap-4 w-full">
-              <button
-                onClick={() => setGalleryIndex((prev) => (prev === 0 ? projects[selectedProject].gallery.length - 1 : prev - 1))}
-                className="p-3 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
-              >
-                <ChevronLeft size={24} />
-              </button>
-
-              <div className="flex gap-2">
-                {projects[selectedProject].gallery.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setGalleryIndex(idx)}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
-                      idx === galleryIndex
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-white/20 text-white hover:bg-white/30'
-                    }`}
-                  >
-                    {idx + 1}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                onClick={() => setGalleryIndex((prev) => (prev === projects[selectedProject].gallery.length - 1 ? 0 : prev + 1))}
-                className="p-3 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-
-            <h3 className="text-white text-xl font-semibold text-center">{projects[selectedProject].title}</h3>
-          </div>
-        </div>
-      )}
-
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Alex Morgan. Built with React & Tailwind CSS.
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-100 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} {PERSONAL_INFO.name}. Built with React
+            & Tailwind.
           </p>
+          <div className="flex gap-6">
+            <a
+              href={PERSONAL_INFO.social.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-400 hover:text-emerald-600 transition-colors"
+            >
+              <Github size={20} />
+            </a>
+            <a
+              href={PERSONAL_INFO.social.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-400 hover:text-emerald-600 transition-colors"
+            >
+              <Linkedin size={20} />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
