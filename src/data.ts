@@ -108,7 +108,6 @@ export const PROJECTS = [
     tech: ['Next.js', 'Convex', 'Vapi.ai', 'Gemini API', 'TypeScript', 'Clerk'],
     image:
       'https://www.aidlab.com/static/blog-imgs/the-era-of-ai-based-fitness/hero.svg',
-    liveLink: '#',
     repoLink:
       'https://github.com/Bala-s-dev/AI-Fitness_VoiceCall-Assistant-and-Scheduler.git',
     gallery: [
@@ -124,7 +123,6 @@ export const PROJECTS = [
     tech: ['React.js', 'Node.js', 'Socket.io', 'MongoDB', 'AES-256'],
     image:
       'https://i.pcmag.com/imagery/articles/002UA0jmq1cLhHLC4kkoQjK-3.fit_lim.v1569490057.jpg',
-    liveLink: '#',
     repoLink: 'https://github.com/Bala-s-dev/balachat.git',
     gallery: [
       '/public/assets/secure-chat/Screenshot (388).png',
@@ -138,7 +136,6 @@ export const PROJECTS = [
       'Integrated Groq API with optimized system prompts to deliver instant resume analysis and mock interview questions. Implemented Google OAuth 2.0 for frictionless onboarding and hardened the Express server with Helmet.js.',
     tech: ['MERN Stack', 'Groq API', 'Google OAuth', 'Helmet.js', 'Tailwind'],
     image: 'https://blog.vocaliv.com/wp-content/uploads/2025/10/AI-Coach.png',
-    liveLink: '#',
     repoLink: 'https://github.com/Bala-s-dev/ai-career-coach',
     gallery: [
       '/public/assets/ai-coach/1.png',
@@ -146,6 +143,25 @@ export const PROJECTS = [
       '/public/assets/ai-coach/Screenshot (393).png',
       '/public/assets/ai-coach/Screenshot (394).png',
       '/public/assets/ai-coach/Screenshot (397).png',
+    ],
+  },
+  {
+    title: 'AI-Powered Smart Exam Platform',
+    description:
+      'An intelligent EdTech application where instructors generate exams instantly from raw syllabus text using Google Gemini AI, and students receive predictive performance analytics to identify weak topics.',
+    tech: [
+      'Next.js 16',
+      'TypeScript',
+      'PostgreSQL',
+      'Prisma',
+      'Google Gemini AI',
+      'Tailwind CSS',
+    ],
+    image:
+      'https://www.eklavvya.com/wp-content/uploads/2023/11/generative-ai-assessment-scaled-1.webp',
+    repoLink: 'https://github.com/Bala-s-dev/smart-exam-platform.git',
+    gallery: [
+      // Coding/Tech context
     ],
   },
   {
@@ -161,7 +177,7 @@ export const PROJECTS = [
     ],
     image:
       'https://thumbs.dreamstime.com/b/rising-gold-prices-business-analysis-precious-metal-investment-stock-exchange-rising-gold-prices-business-analysis-222377695.jpg',
-    liveLink: '#',
+
     repoLink: 'https://github.com/Bala-s-dev/gopi-proj.git',
     gallery: [
       '/public/assets/metal-inv/1.jpg',
