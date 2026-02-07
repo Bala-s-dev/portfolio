@@ -1,19 +1,18 @@
-
 import React from "react";
 import { Briefcase, Calendar, MapPin, CheckCircle2, ChevronRight } from "lucide-react";
 
 const experience = [
   {
-    role: "Full Stack Developer Intern",
+    role: "Full Stack Intern",
     company: "Ernestwell",
     location: "Remote, UK",
-    period: "Nov 2024 – Feb 2025",
-    description: "Spearheaded the development of high-performance EdTech solutions with a focus on scalability and user experience.",
+    period: "Nov 24 – Feb 25",
+    description: "Architected high-performance EdTech solutions with a focus on security and scalable architecture.",
     achievements: [
-      "Built Unibritend study abroad platform with high-performance architecture.",
-      "Implemented dynamic search/filter capabilities across 400+ datasets.",
-      "Developed a secure Admin Portal using Firebase Auth + Firestore.",
-      "Integrated an FAQ chatbot that reduced support queries by 30%."
+      "Engineered 'Unibritend' study platform core architecture.",
+      "Optimized search performance for 400+ dynamic datasets.",
+      "Built secure Admin Portal via Firebase Auth & Firestore.",
+      "Deployed AI chatbot reducing support load by 30%."
     ],
     skills: ["Next.js", "Firebase", "TypeScript", "AI Integration"]
   }
@@ -36,14 +35,11 @@ export function Experience() {
       <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-emerald-500/50 before:via-border before:to-transparent">
         {experience.map((item, i) => (
           <div key={i} className="relative flex items-start gap-8 group">
-            {/* Timeline Dot */}
             <div className="flex items-center justify-center w-10 h-10 rounded-full border border-emerald-400/30 bg-background shadow-[0_0_20px_rgba(52,211,153,0.1)] shrink-0 z-10 group-hover:border-emerald-400 group-hover:scale-110 transition-all duration-500">
               <Briefcase className="w-5 h-5 text-emerald-400" />
             </div>
 
-            {/* Experience Card */}
             <div className="flex-1 p-8 md:p-10 rounded-[2.5rem] border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative overflow-hidden group/card">
-              {/* Subtle Ambient Glow */}
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-400/5 blur-[80px] rounded-full pointer-events-none group-hover/card:bg-emerald-400/10 transition-colors" />
               
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
