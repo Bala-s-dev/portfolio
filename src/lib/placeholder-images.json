@@ -23,6 +23,12 @@
       "description": "AI Career Coach SaaS",
       "imageUrl": "https://images.unsplash.com/photo-1752650734567-fca336c8b77a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJlZXIlMjBvZmZpY2V8ZW58MHx8fHwxNzcwNDc2NDM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "career office"
+    },
+    {
+      "id": "experience-office",
+      "description": "Modern Remote Workspace",
+      "imageUrl": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxvZmZpY2UlMjBkZXNrfGVufDB8fHx8MTc3MDQ3NzYwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "office desk"
     }
   ]
 }
