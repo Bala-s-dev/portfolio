@@ -1,3 +1,4 @@
+
 import React from "react";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -15,8 +16,8 @@ const projects = [
     color: "hsl(var(--tech-rose))",
     tech: ["Next.js 15", "Gemini 2.5", "Firebase", "PostgreSQL"],
     description: "Enterprise-grade AI exam orchestrator featuring automated MCQ synthesis and performance predictive modeling with 98% accuracy.",
-    link: "#",
-    github: "#"
+    link: "https://example.com",
+    github: "https://github.com"
   },
   {
     title: "SecureChat Protocol",
@@ -26,8 +27,8 @@ const projects = [
     color: "hsl(var(--tech-emerald))",
     tech: ["Socket.io", "AES-256", "Node.js", "Redis"],
     description: "Post-quantum ready E2EE messaging layer implementing double-ratchet encryption and perfect forward secrecy.",
-    link: "#",
-    github: "#"
+    link: "https://example.com",
+    github: "https://github.com"
   },
   {
     title: "Conversational Fitness AI",
@@ -37,8 +38,8 @@ const projects = [
     color: "hsl(var(--tech-cyan))",
     tech: ["Convex", "Vapi.ai", "React", "Gemini"],
     description: "Low-latency voice assistant utilizing LLM function calling to dynamically adjust workout parameters mid-session.",
-    link: "#",
-    github: "#"
+    link: "https://example.com",
+    github: "https://github.com"
   },
   {
     title: "AI Career Accelerator",
@@ -48,8 +49,8 @@ const projects = [
     color: "hsl(var(--tech-amber))",
     tech: ["MERN", "Groq AI", "OAuth 2.0", "Redis"],
     description: "Advanced resume parsing engine leveraging Mixtral-8x7B for semantic extraction and targeted career mapping.",
-    link: "#",
-    github: "#"
+    link: "https://example.com",
+    github: "https://github.com"
   }
 ];
 
@@ -76,7 +77,7 @@ export function Projects() {
           const imageData = PlaceHolderImages.find(img => img.id === project.imageId);
           
           return (
-            <Card key={i} className="group relative overflow-hidden bg-white/[0.01] border-white/5 card-hover-effect flex flex-col rounded-[2rem]">
+            <Card key={i} className="group relative overflow-hidden bg-white/[0.01] border-white/5 card-hover-effect flex flex-col rounded-[2.5rem] shadow-2xl">
               <div className="relative aspect-[16/10] overflow-hidden">
                 {imageData && (
                   <Image
@@ -89,21 +90,15 @@ export function Projects() {
                   />
                 )}
                 {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-90" />
                 
                 {/* Floating Tech Badges */}
                 <div className="absolute bottom-6 left-6 flex flex-wrap gap-2">
                   {project.tech.slice(0, 3).map((t, j) => (
-                    <span key={j} className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-xl border border-white/10 text-[9px] font-black uppercase tracking-widest text-white/80">
+                    <span key={j} className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 text-[9px] font-black uppercase tracking-widest text-white/90">
                       {t}
                     </span>
                   ))}
-                </div>
-
-                <div className="absolute top-6 right-6 flex gap-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                  <Button variant="secondary" size="icon" className="h-10 w-10 rounded-full bg-white/10 backdrop-blur-xl border-white/10 hover:bg-primary hover:text-white transition-all">
-                    <Github className="w-5 h-5" />
-                  </Button>
                 </div>
               </div>
 
@@ -127,15 +122,29 @@ export function Projects() {
                 </CardDescription>
               </CardContent>
               
-              <CardFooter className="px-8 pb-8 pt-0">
-                 <Button variant="link" className="px-0 text-white hover:text-primary gap-2 h-auto py-0 font-black text-xs uppercase tracking-widest group-hover:gap-4 transition-all">
-                   EXPLORE ARCHITECTURE <ArrowUpRight className="w-4 h-4 text-primary" />
-                 </Button>
+              <CardFooter className="px-8 pb-8 pt-0 flex gap-4">
+                <Button 
+                  asChild
+                  className="rounded-full bg-white text-black hover:bg-white/90 font-black text-[10px] uppercase tracking-widest h-12 px-8 shadow-xl shadow-white/5 transition-all hover:scale-105 active:scale-95"
+                >
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                    Live Demo <ExternalLink className="w-4 h-4" />
+                  </a>
+                </Button>
+                <Button 
+                  asChild
+                  variant="outline" 
+                  className="rounded-full border-white/10 bg-white/5 hover:bg-white/10 font-black text-[10px] uppercase tracking-widest h-12 px-8 transition-all hover:scale-105 active:scale-95"
+                >
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 hover:text-white">
+                    Source <Github className="w-4 h-4" />
+                  </a>
+                </Button>
               </CardFooter>
 
               {/* Hover Glow Background */}
               <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] pointer-events-none transition-opacity duration-500"
+                className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] pointer-events-none transition-opacity duration-700"
                 style={{ backgroundColor: project.color }}
               />
             </Card>
