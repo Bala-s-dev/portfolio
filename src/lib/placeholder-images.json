@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "project-exam",
+      "description": "AI EdTech Exam Platform",
+      "imageUrl": "https://images.unsplash.com/photo-1761311985262-d0a342290b56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxlZHVjYXRpb24lMjBhaXxlbnwwfHx8fDE3NzA0NzY0Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "education ai"
+    },
+    {
+      "id": "project-chat",
+      "description": "Secure Encrypted Messaging",
+      "imageUrl": "https://images.unsplash.com/photo-1758983308742-f4ba1f8c8cb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjeWJlcnNlY3VyaXR5JTIwbG9ja3xlbnwwfHx8fDE3NzA0NzY0Mzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cybersecurity lock"
+    },
+    {
+      "id": "project-fitness",
+      "description": "AI Voice Fitness Coach",
+      "imageUrl": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaXRuZXNzJTIwY29hY2h8ZW58MHx8fHwxNzcwMzc4MzU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fitness coach"
+    },
+    {
+      "id": "project-career",
+      "description": "AI Career Coach SaaS",
+      "imageUrl": "https://images.unsplash.com/photo-1752650734567-fca336c8b77a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJlZXIlMjBvZmZpY2V8ZW58MHx8fHwxNzcwNDc2NDM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "career office"
+    }
+  ]
 }
