@@ -1,8 +1,6 @@
 
 import React from "react";
-import Image from "next/image";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Briefcase, Calendar, MapPin, CheckCircle2, ChevronRight } from "lucide-react";
 
 const experience = [
   {
@@ -10,87 +8,89 @@ const experience = [
     company: "Ernestwell",
     location: "Remote, UK",
     period: "Nov 2024 – Feb 2025",
+    description: "Spearheaded the development of high-performance EdTech solutions with a focus on scalability and user experience.",
     achievements: [
       "Built Unibritend study abroad platform with high-performance architecture.",
       "Implemented dynamic search/filter capabilities across 400+ datasets.",
       "Developed a secure Admin Portal using Firebase Auth + Firestore.",
       "Integrated an FAQ chatbot that reduced support queries by 30%."
-    ]
+    ],
+    skills: ["Next.js", "Firebase", "TypeScript", "AI Integration"]
   }
 ];
 
 export function Experience() {
-  const imageData = PlaceHolderImages.find(img => img.id === 'experience-office');
-
   return (
-    <section id="experience" className="py-24 container px-4 max-w-6xl">
-      <div className="flex flex-col items-center text-center mb-16 space-y-4">
+    <section id="experience" className="py-24 container px-4 max-w-4xl">
+      <div className="flex flex-col items-center text-center mb-20 space-y-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">
           <Briefcase className="w-3.5 h-3.5" />
-          <span>Professional Journey</span>
+          <span>Professional Background</span>
         </div>
-        <h2 className="text-5xl md:text-7xl font-black tracking-tighter">Career <span className="text-emerald-400 italic">Timeline</span></h2>
+        <h2 className="text-5xl md:text-6xl font-black tracking-tighter">Career <span className="text-emerald-400 italic">Evolution</span></h2>
+        <p className="text-muted-foreground text-lg max-w-xl font-light">
+          Strategic engineering roles in remote-first environments, delivering production-grade systems at scale.
+        </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12 items-start">
-        {/* Left: Interactive Timeline */}
-        <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-          {experience.map((item, i) => (
-            <div key={i} className="relative flex items-start gap-8 group">
-              {/* Dot */}
-              <div className="flex items-center justify-center w-10 h-10 rounded-2xl border border-white/10 bg-background shadow-xl shrink-0 z-10 group-hover:border-emerald-400/50 transition-colors">
-                <Briefcase className="w-5 h-5 text-emerald-400" />
-              </div>
+      <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-emerald-500/50 before:via-border before:to-transparent">
+        {experience.map((item, i) => (
+          <div key={i} className="relative flex items-start gap-8 group">
+            {/* Timeline Dot */}
+            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-emerald-400/30 bg-background shadow-[0_0_20px_rgba(52,211,153,0.1)] shrink-0 z-10 group-hover:border-emerald-400 group-hover:scale-110 transition-all duration-500">
+              <Briefcase className="w-5 h-5 text-emerald-400" />
+            </div>
 
-              {/* Content Card */}
-              <div className="flex-1 p-8 rounded-3xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all card-hover-effect">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                  <div>
-                    <h3 className="font-black text-2xl mb-1">{item.role}</h3>
-                    <div className="text-emerald-400 font-bold flex items-center gap-2 text-sm">
-                      {item.company} <span className="text-white/20">•</span> <MapPin className="w-3 h-3" /> {item.location}
-                    </div>
-                  </div>
-                  <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-muted-foreground whitespace-nowrap">
-                    <Calendar className="w-3.5 h-3.5 inline mr-2 mb-0.5" /> {item.period}
+            {/* Experience Card */}
+            <div className="flex-1 p-8 md:p-10 rounded-[2.5rem] border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 relative overflow-hidden group/card">
+              {/* Subtle Ambient Glow */}
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-400/5 blur-[80px] rounded-full pointer-events-none group-hover/card:bg-emerald-400/10 transition-colors" />
+              
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                  <h3 className="font-black text-3xl mb-2 group-hover:text-emerald-400 transition-colors">{item.role}</h3>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                    <span className="text-white font-bold">{item.company}</span>
+                    <span className="text-white/20 hidden sm:block">•</span>
+                    <span className="text-muted-foreground flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4 text-emerald-400/60" /> {item.location}
+                    </span>
                   </div>
                 </div>
-                
-                <ul className="grid gap-3">
-                  {item.achievements.map((achievement, j) => (
-                    <li key={j} className="text-sm text-muted-foreground/90 flex items-start gap-3 leading-relaxed">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0 shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
+                <div className="inline-flex items-center px-4 py-2 rounded-xl bg-emerald-400/5 border border-emerald-400/10 text-[10px] font-black uppercase tracking-widest text-emerald-400 whitespace-nowrap h-fit self-start md:self-center">
+                  <Calendar className="w-3.5 h-3.5 mr-2" /> {item.period}
+                </div>
+              </div>
+
+              <p className="text-muted-foreground mb-8 text-lg font-light leading-relaxed">
+                {item.description}
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                {item.achievements.map((achievement, j) => (
+                  <div key={j} className="flex items-start gap-3 p-4 rounded-2xl bg-black/20 border border-white/5 group/item hover:border-emerald-400/20 transition-colors">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-1 shrink-0 group-hover/item:scale-110 transition-transform" />
+                    <span className="text-sm text-muted-foreground leading-relaxed group-hover/item:text-white transition-colors">
                       {achievement}
-                    </li>
-                  ))}
-                </ul>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {item.skills.map((skill, k) => (
+                  <span key={k} className="px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-[9px] font-black uppercase tracking-widest text-white/40 group-hover/card:text-emerald-400/80 group-hover/card:border-emerald-400/20 transition-all">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              <div className="absolute bottom-6 right-6 opacity-0 group-hover/card:opacity-100 transition-opacity translate-x-4 group-hover/card:translate-x-0 duration-500">
+                <ChevronRight className="w-6 h-6 text-emerald-400/30" />
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Right: Immersive Image */}
-        <div className="relative group lg:sticky lg:top-32">
-          <div className="absolute -inset-4 bg-emerald-400/20 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[3rem] border border-white/10 shadow-2xl">
-            {imageData && (
-              <Image 
-                src={imageData.imageUrl} 
-                alt={imageData.description}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-1000"
-                data-ai-hint={imageData.imageHint}
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-8 left-8 right-8 p-6 glass-morphism rounded-2xl border-white/10">
-              <p className="text-xs font-black uppercase tracking-widest text-emerald-400 mb-2">Work Ethic</p>
-              <p className="text-sm font-light text-white/80 leading-relaxed italic">
-                "Scaling systems requires not just technical precision, but a deep understanding of the human-computer interaction loop."
-              </p>
-            </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
