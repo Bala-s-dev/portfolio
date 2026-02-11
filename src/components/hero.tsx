@@ -1,80 +1,126 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Github, Linkedin, ArrowRight, Sparkles, ShieldCheck, Terminal } from "lucide-react";
-import Link from "next/link";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Github,
+  Linkedin,
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Terminal,
+} from 'lucide-react';
+import Link from 'next/link';
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-20 overflow-hidden hero-gradient">
-      {/* Dynamic Background Elements */}
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center pt-24 sm:pt-28 lg:pt-32 overflow-hidden hero-gradient">
+      {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-1/4 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-accent/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse-glow" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]" />
+        <div
+          className="absolute top-1/4 left-1/4 
+          w-[260px] sm:w-[380px] lg:w-[520px] 
+          h-[260px] sm:h-[380px] lg:h-[520px]
+          bg-primary/20 rounded-full blur-[90px] lg:blur-[140px]
+          animate-pulse-glow"
+        />
+
+        <div
+          className="absolute bottom-1/4 right-1/4 
+          w-[260px] sm:w-[380px] lg:w-[520px]
+          h-[260px] sm:h-[380px] lg:h-[520px]
+          bg-accent/20 rounded-full blur-[90px] lg:blur-[140px]
+          animate-pulse-glow"
+          style={{ animationDelay: '1s' }}
+        />
       </div>
 
-      <div className="container px-4 relative z-10 text-center">
-        <div className="animate-reveal [animation-fill-mode:backwards]">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/5 border border-white/10 text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-primary mb-6 md:mb-8 animate-float shadow-2xl shadow-primary/10">
-            <div className="w-1.5 h-1.5 md:w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span>Engineer & Researcher</span>
-            <div className="w-1 h-1 rounded-full bg-white/20 mx-1" />
-            <span className="text-white/60">v2025.01</span>
-          </div>
-
-          <h1 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter mb-6 md:mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/20 leading-[0.95] md:leading-[0.9] px-2 break-words">
-            BALA <br className="hidden sm:block" /> SUBRAMANIAN
-          </h1>
-          
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-10 md:mb-12">
-            <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
-              <ShieldCheck className="w-4 h-4 md:w-5 md:h-5 text-emerald-400" />
-              <span className="text-xs md:text-sm font-medium text-white/80">Security Architect</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
-              <Terminal className="w-4 h-4 md:w-5 md:h-5 text-cyan-400" />
-              <span className="text-xs md:text-sm font-medium text-white/80">Full-Stack Engineer</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
-              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-rose-400" />
-              <span className="text-xs md:text-sm font-medium text-white/80">AI Specialist</span>
-            </div>
-          </div>
-          
-          <p className="text-base md:text-xl text-muted-foreground/80 mb-10 md:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4">
-            Building the next generation of <span className="text-white font-medium">resilient AI infrastructure</span> and hyper-secure real-time platforms.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
-            <Link href="#projects" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto group rounded-full px-8 md:px-10 h-14 md:h-16 text-base md:text-lg font-bold gap-3 bg-primary hover:bg-primary/90 shadow-[0_0_40px_rgba(79,70,229,0.3)] transition-all hover:scale-105">
-                View Portfolio <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-            <div className="flex items-center gap-4">
-              <Link href="https://github.com" target="_blank">
-                <Button variant="outline" size="icon" className="h-12 w-12 md:h-14 md:w-14 rounded-full border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all hover:scale-110">
-                  <Github className="w-5 h-5 md:w-6 md:h-6" />
-                </Button>
-              </Link>
-              <Link href="https://linkedin.com" target="_blank">
-                <Button variant="outline" size="icon" className="h-12 w-12 md:h-14 md:w-14 rounded-full border-white/10 bg-white/5 hover:bg-white/10 hover:border-accent/50 transition-all hover:scale-110">
-                  <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-[#0077B5]" />
-                </Button>
-              </Link>
-            </div>
-          </div>
+      {/* Content */}
+      <div className="container max-w-7xl xl:max-w-[1400px] px-4 sm:px-6 lg:px-10 text-center relative z-10">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-primary mb-8 animate-float">
+          <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span>Engineer & Researcher</span>
+          <span className="text-white/50 hidden sm:inline">v2025.01</span>
         </div>
-      </div>
 
-      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30 group cursor-pointer hover:opacity-100 transition-opacity">
-        <span className="text-[8px] md:text-[9px] uppercase tracking-[0.6em] font-black">Scroll For Impact</span>
-        <div className="relative w-5 h-8 md:w-6 md:h-10 rounded-full border-2 border-white/20 flex justify-center p-1">
-          <div className="w-1 md:w-1.5 h-1 md:h-1.5 bg-white rounded-full animate-bounce" />
+        {/* Heading */}
+        <h1
+          className="
+          text-5xl sm:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem]
+          font-black tracking-tighter mb-8
+          bg-clip-text text-transparent bg-gradient-to-b
+          from-white via-white/90 to-white/20
+          leading-[0.95]"
+        >
+          BALA <br className="hidden sm:block" /> SUBRAMANIAN
+        </h1>
+
+        {/* Tags */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10">
+          <Tag icon={<ShieldCheck />} text="Security Architect" />
+          <Tag icon={<Terminal />} text="Full-Stack Engineer" />
+          <Tag icon={<Sparkles />} text="AI Specialist" />
+        </div>
+
+        {/* Description */}
+        <p className="text-sm sm:text-lg lg:text-xl xl:text-2xl text-muted-foreground/80 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+          Building the next generation of{' '}
+          <span className="text-white font-medium">
+            resilient AI infrastructure
+          </span>{' '}
+          and hyper-secure real-time platforms.
+        </p>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center gap-5">
+          <Link href="#projects" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto rounded-full px-10 h-14 lg:h-16 text-base lg:text-lg font-bold gap-3 bg-primary hover:bg-primary/90 transition hover:scale-105"
+            >
+              View Portfolio{' '}
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+
+          <div className="flex justify-center gap-4">
+            <Social link="https://github.com">
+              <Github className="w-6 h-6" />
+            </Social>
+
+            <Social link="https://linkedin.com">
+              <Linkedin className="w-6 h-6" />
+            </Social>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* Helpers */
+function Tag({ icon, text }: any) {
+  return (
+    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5">
+      {icon}
+      <span className="text-xs sm:text-sm font-medium text-white/80">
+        {text}
+      </span>
+    </div>
+  );
+}
+
+function Social({ link, children }: any) {
+  return (
+    <Link href={link} target="_blank">
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-12 w-12 lg:h-14 lg:w-14 rounded-full border-white/10 bg-white/5 hover:bg-white/10 hover:scale-110 transition"
+      >
+        {children}
+      </Button>
+    </Link>
   );
 }
